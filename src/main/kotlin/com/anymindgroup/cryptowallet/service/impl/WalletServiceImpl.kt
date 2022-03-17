@@ -9,9 +9,9 @@ import com.anymindgroup.cryptowallet.service.WalletService
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.sql.Timestamp
 import java.time.LocalDateTime
-import javax.transaction.Transactional
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Service
 class WalletServiceImpl(
@@ -20,7 +20,6 @@ class WalletServiceImpl(
 ) :
 	WalletService {
 
-	@Transactional
 	override fun deposit(deposit: Deposit): Mono<Transaction> {
 		return walletRepository.findById(deposit.walletId).flatMap { wallet ->
 			wallet.balance = wallet.balance?.plus(deposit.amount)
@@ -33,6 +32,9 @@ class WalletServiceImpl(
 	}
 
 	override fun getTransactions(from: LocalDateTime, to: LocalDateTime): Flux<Transaction> {
-		return transactionRepository.findByDatetimeBetween(Timestamp.valueOf(from), Timestamp.valueOf(to))
+		return transactionRepository.findByDatetimeBetween(
+			ZonedDateTime.of(from, ZoneId.of("UTC")),
+			ZonedDateTime.of(to, ZoneId.of("UTC"))
+		)
 	}
 }

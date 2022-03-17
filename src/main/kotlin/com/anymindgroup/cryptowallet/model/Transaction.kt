@@ -1,26 +1,16 @@
 package com.anymindgroup.cryptowallet.model
 
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 import java.math.BigDecimal
-import java.sql.Timestamp
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.Table
+import java.time.ZonedDateTime
 
-@Entity
-@Table(name = "walletTransactions")
-class Transaction(
+@Table("walletTransactions")
+data class Transaction(
 	val amount: BigDecimal,
-	val datetime: Timestamp,
-	val type: TransactionType
+	val datetime: ZonedDateTime
 ) {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	val id: Long? = null
 
-}
-
-enum class TransactionType(i: Int) {
-	DEPOSIT(0)
 }

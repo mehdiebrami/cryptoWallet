@@ -6,7 +6,8 @@ plugins {
 	id("com.google.cloud.tools.jib") version "3.2.0"
 	kotlin("jvm") version "1.6.10"
 	kotlin("plugin.spring") version "1.6.10"
-	kotlin("plugin.jpa") version "1.6.10"
+	kotlin("kapt") version "1.6.10"
+
 }
 
 group = "com.anymindgroup"
@@ -25,7 +26,6 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -35,12 +35,15 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.mapstruct:mapstruct:1.4.2.Final")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+	kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
+
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 	runtimeOnly("dev.miku:r2dbc-mysql")
 	runtimeOnly("mysql:mysql-connector-java")
-//	runtimeOnly("io.r2dbc:r2dbc-postgresql")
-//	runtimeOnly("org.postgresql:postgresql")
+	runtimeOnly("io.r2dbc:r2dbc-postgresql")
+	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 }

@@ -1,17 +1,10 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: create
-    generate-ddl: true
-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/crypto-wallet
-    username: root
-    password: rootroot
-    dbcp2:
-      driver-class-name: com.mysql.cj.jdbc.Driver
   webflux:
     base-path: /crypto-wallet/api
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/crypto-wallet
+    username: root
+    password: rootroot
 
 server:
   port: 8080
